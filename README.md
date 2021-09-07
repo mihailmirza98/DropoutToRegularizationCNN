@@ -5,7 +5,7 @@ with various dropouts for convolutional and fully connected layers.
 
 DEPENDENCIES
 ------------
-For the project to work correctly, you need to install the following packages:
+Packages:
 
  * pandas 
  * openpyxl
@@ -16,7 +16,7 @@ For the project to work correctly, you need to install the following packages:
 DATASET
 ------------
 
-You can download the training dataset dogs-v-cats by address:
+You can download the training dataset dogs-vs-cats by address:
 
       https://www.kaggle.com/c/dogs-vs-cats
 
