@@ -1,4 +1,6 @@
 # Options of CNN model
+import os
+
 class ModelOptions:
     _common_file_name: str = 'models_summary'
     _data_directory = 'data/'
@@ -20,3 +22,10 @@ class ModelOptions:
     @classmethod
     def get_common_png_file_name(cls):
         return cls._data_directory + cls._common_file_name + '.png'
+
+    @classmethod
+    def create_data_directory(cls):
+        directory = os.curdir + '/' + cls._data_directory
+        if not os.path.isdir(directory):
+            os.mkdir(directory)
+

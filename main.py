@@ -45,7 +45,7 @@ def create_data_iterators(target_size: (int, int), dataset_location: str):
 
 with tf.device("/GPU:0"):
     # specify params
-    epochs = 2
+    epochs = 40
     target_size = (200, 200)
     input_shape = target_size + (3,)
     # specify types of models
@@ -59,6 +59,8 @@ with tf.device("/GPU:0"):
     # prepare iterators
     dataset_location = os.curdir + '/cats_vs_dogs_dataset'
     train_iterator, test_iterator = create_data_iterators(dataset_location=dataset_location, target_size=target_size)
+    # create directory to save visualisation file
+    ModelOptions.create_data_directory()
     # test different types of models
     for model_options in models_options_set:
         # create model
