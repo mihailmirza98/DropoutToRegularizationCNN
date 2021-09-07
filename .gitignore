@@ -1,0 +1,4 @@
+# Project exclude paths
+/venv/
+/cats_vs_dogs_dataset/
+/.idea/
