@@ -1,6 +1,6 @@
 CNN's regularization with dropout
 =================================
-This project allows you to train and compare different configurations of DNN
+This project allows train and compare different configurations of DNN
 with various dropouts for convolutional and fully connected layers.
 
 DEPENDENCIES
