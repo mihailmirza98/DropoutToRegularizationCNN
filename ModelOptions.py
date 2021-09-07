@@ -1,6 +1,6 @@
-# Options of CNN model
 import os
 
+# Options of CNN model
 class ModelOptions:
     _common_file_name: str = 'models_summary'
     _data_directory = 'data/'
