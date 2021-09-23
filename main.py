@@ -2,31 +2,8 @@ import os
 import tensorflow as tf
 from tensorflow import keras
 from ModelOptions import ModelOptions
+from ModelCreator import ModelCreator
 from VisualisationFunctions import save_models_to_png, save_model_to_png, save_model_to_xlsx
-
-
-# create CNN model with specified drop_chance
-def create_model(options: ModelOptions):
-    # create model
-    model = keras.models.Sequential(name=options.name)
-    model.add(keras.layers.Conv2D(filters=32, kernel_size=(3, 3), padding="same", activation='relu',
-                                  input_shape=options.input_shape))
-    model.add(keras.layers.MaxPooling2D((2, 2)))
-    model.add(keras.layers.Dropout(options.drop_conv))
-    model.add(keras.layers.Conv2D(filters=64, kernel_size=(3, 3), padding="same", activation='relu'))
-    model.add(keras.layers.MaxPooling2D((2, 2)))
-    model.add(keras.layers.Dropout(options.drop_conv))
-    model.add(keras.layers.Conv2D(filters=128, kernel_size=(3, 3), padding="same", activation='relu'))
-    model.add(keras.layers.MaxPooling2D((2, 2)))
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dropout(options.drop_fc))
-    model.add(keras.layers.Dense(units=128, activation='relu'))
-    model.add(keras.layers.Dense(units=1, activation='sigmoid'))
-    # compile model
-    model.compile(optimizer=keras.optimizers.SGD(learning_rate=0.001, momentum=0.9),
-                  loss='binary_crossentropy',
-                  metrics=['accuracy'])
-    return model
 
 
 # create data iterators for model
@@ -61,10 +38,12 @@ with tf.device("/GPU:0"):
     train_iterator, test_iterator = create_data_iterators(dataset_location=dataset_location, target_size=target_size)
     # create directory to save visualisation file
     ModelOptions.create_data_directory()
+    # create model creator
+    creator = ModelCreator()
     # test different types of models
     for model_options in models_options_set:
         # create model
-        model = create_model(options=model_options)
+        model = creator.create_model(options=model_options)
         model.summary()
         # fit model
         model_options.history = model.fit(train_iterator, validation_data=test_iterator, epochs=epochs).history
