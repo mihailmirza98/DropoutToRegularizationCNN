@@ -1,15 +1,16 @@
 import os
 import tensorflow as tf
-from tensorflow import keras
+from tensorflow.keras import preprocessing
 from ModelOptions import ModelOptions
 from ModelCreator import ModelCreator
 from VisualisationFunctions import save_models_to_png, save_model_to_png, save_model_to_xlsx
 
 
 # create data iterators for model
-def create_data_iterators(target_size: (int, int), dataset_location: str):
+def create_data_iterators(target_size: tuple[int, int], dataset_location: str):
+    """ Create iterators for train and test data sets."""
     # create data generator
-    data_generator = keras.preprocessing.image.ImageDataGenerator(rescale=1.0 / 255.0)
+    data_generator = preprocessing.image.ImageDataGenerator(rescale=1.0 / 255.0)
     # prepare iterator
     train_iterator = data_generator.flow_from_directory(dataset_location + '/train/',
                                                         class_mode='binary',
